@@ -12,7 +12,7 @@ class channel_selection(nn.Module):
         """
         Initialize the `indexes` with all one vector with the length same as the number of channels.
         During pruning, the places in `indexes` which correpond to the channels to be pruned will be set to 0.
-	    """
+        """
         super(channel_selection, self).__init__()
         self.indexes = nn.Parameter(torch.ones(num_channels))
 
@@ -21,7 +21,7 @@ class channel_selection(nn.Module):
         Parameter
         ---------
         input_tensor: (N,C,H,W). It should be the output of BatchNorm2d layer.
-		"""
+        """
         selected_index = np.squeeze(np.argwhere(self.indexes.data.cpu().numpy()))
         if selected_index.size == 1:
             selected_index = np.resize(selected_index, (1,)) 
