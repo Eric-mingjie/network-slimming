@@ -122,8 +122,6 @@ if args.resume:
     else:
         print("=> no checkpoint found at '{}'".format(args.resume))
 
-history_score = np.zeros((args.epochs - args.start_epoch + 1, 3))
-
 # additional subgradient descent on the sparsity-induced penalty term
 def updateBN():
     for m in model.modules():
@@ -132,9 +130,6 @@ def updateBN():
 
 def train(epoch):
     model.train()
-    global history_score
-    avg_loss = 0.
-    train_acc = 0.
     for batch_idx, (data, target) in enumerate(train_loader):
         if args.cuda:
             data, target = data.cuda(), target.cuda()
@@ -142,9 +137,7 @@ def train(epoch):
         optimizer.zero_grad()
         output = model(data)
         loss = F.cross_entropy(output, target)
-        avg_loss += loss.data[0]
         pred = output.data.max(1, keepdim=True)[1]
-        train_acc += pred.eq(target.data.view_as(pred)).cpu().sum()
         loss.backward()
         if args.sr:
             updateBN()
@@ -153,8 +146,6 @@ def train(epoch):
             print('Train Epoch: {} [{}/{} ({:.1f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.data[0]))
-    history_score[epoch][0] = avg_loss / len(train_loader)
-    history_score[epoch][1] = train_acc / float(len(train_loader))
 
 def test():
     model.eval()
@@ -187,8 +178,6 @@ for epoch in range(args.start_epoch, args.epochs):
             param_group['lr'] *= 0.1
     train(epoch)
     prec1 = test()
-    history_score[epoch][2] = prec1
-    np.savetxt(os.path.join(args.save, 'record.txt'), history_score, fmt = '%10.5f', delimiter=',')
     is_best = prec1 > best_prec1
     best_prec1 = max(prec1, best_prec1)
     save_checkpoint({
@@ -199,5 +188,3 @@ for epoch in range(args.start_epoch, args.epochs):
     }, is_best, filepath=args.save)
 
 print("Best accuracy: "+str(best_prec1))
-history_score[-1][0] = best_prec1
-np.savetxt(os.path.join(args.save, 'record.txt'), history_score, fmt = '%10.5f', delimiter=',')

@@ -82,8 +82,10 @@ python main.py --refine [PATH TO THE PRUNED MODEL] --dataset cifar10 --arch vgg 
 
 |  CIFAR100-Resnet-164  | Baseline |   Sparsity (1e-5) | Prune (40%) | Fine-tune-160(40%) |    Prune(60%)  | Fine-tune-160(60%) |
 | :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: |:--------------------: | :-----------------:|
-| Top1 Accuracy (%) |  -----   |            76.87             |        48.0        |         ---         |  ---       |     --     |
-|    Parameters     |  1.73M  |            1.73M            |        1.49M        |         ---         |---       |     --     |
+| Top1 Accuracy (%) |  76.79   |            76.87             |        48.0        |         77.36        |  ---       |     ---     |
+|    Parameters     |  1.73M  |            1.73M            |        1.49M        |         1.49M         |---       |     ---     |
+
+Note: For results of pruning 60% of the channels for resnet164-cifar100, in this implementation, sometimes some layers are all pruned and there would be error. However, we also provide a [mask implementation](https://github.com/Eric-mingjie/network-slimming/tree/master/mask-impl) where we apply a mask to the scaling factor in BN layer. For mask implementaion, when pruning 60% of the channels in resnet164-cifar100, we can also train the pruned network.
 
 |  CIFAR100-Densenet-40  | Baseline |    Sparsity (1e-5) | Prune (40%) | Fine-tune-160(40%) | Prune(60%)  | Fine-tune-160(60%) |
 | :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: |:--------------------: | :-----------------:|
