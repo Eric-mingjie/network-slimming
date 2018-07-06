@@ -21,8 +21,8 @@ Original Torch implementation: [Torch](https://github.com/liuzhuang13/slimming) 
 ## Dependencies
 torch v0.3.1, torchvision v0.2.0
 
-## Channel Selection layer
-We introduce `channel selection` layer to help the the pruning of ResNet and DenseNet. This layer is easy to implement. It stores a parameter `indexes` which is initialized to an all-1 vector. During pruning, it will set some places to 0 which correspond to the pruned channels.
+## Channel Selection Layer
+We introduce `channel selection` layer to help the  pruning of ResNet and DenseNet. This layer is easy to implement. It stores a parameter `indexes` which is initialized to an all-1 vector. During pruning, it will set some places to 0 which correspond to the pruned channels.
 
 ## Baseline 
 
