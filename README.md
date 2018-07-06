@@ -4,7 +4,7 @@ This repository contains an official pytorch implementation for the following pa
 [Learning Efficient Convolutional Networks Through Network Slimming](http://openaccess.thecvf.com/content_iccv_2017/html/Liu_Learning_Efficient_Convolutional_ICCV_2017_paper.html) (ICCV 2017).  
 [Zhuang Liu](https://liuzhuang13.github.io/), [Jianguo Li](https://sites.google.com/site/leeplus/), [Zhiqiang Shen](http://zhiqiangshen.com/), [Gao Huang](http://www.cs.cornell.edu/~gaohuang/), [Shoumeng Yan](https://scholar.google.com/citations?user=f0BtDUQAAAAJ&hl=en), [Changshui Zhang](http://bigeye.au.tsinghua.edu.cn/english/Introduction.html).
 
-The code is based on [pytorch-slimming](https://github.com/foolwood/pytorch-slimming). We add support for `Resnet` and `Densenet`.  
+The code is based on [pytorch-slimming](https://github.com/foolwood/pytorch-slimming). We add support for ResNet and DenseNet.  
 
 Citation:
 ```
@@ -16,13 +16,13 @@ Citation:
     year = {2017}
 }
 ```
-Original torch implementation: [Torch](https://github.com/liuzhuang13/slimming) by [Zhuang Liu](https://liuzhuang13.github.io/).
+Original Torch implementation: [Torch](https://github.com/liuzhuang13/slimming) by [Zhuang Liu](https://liuzhuang13.github.io/).
 
 ## Dependencies
 torch v0.3.1, torchvision v0.2.0
 
 ## Channel Selection layer
-We introduce `channel selection` layer to help the pruning process of Resnet and Densenet. This layer is easy to implement. It stores a parameter `indexes` which is initialized to an all-1 vector. During pruning, it will set some places to 0 which correspond to the pruned channels.
+We introduce `channel selection` layer to help the the pruning of ResNet and DenseNet. This layer is easy to implement. It stores a parameter `indexes` which is initialized to an all-1 vector. During pruning, it will set some places to 0 which correspond to the pruned channels.
 
 ## Baseline 
 
@@ -58,6 +58,8 @@ python main.py --refine [PATH TO THE PRUNED MODEL] --dataset cifar10 --arch vgg 
 ```
 
 ## Results
+
+The results are fairly close to the original paper, whose results are produced by Torch. Note that due to different random seeds, there might be up to ~0.5%/1.5% fluctation on CIFAR-10/100 datasets in different runs, according to our experiences.
 ### CIFAR10
 |  CIFAR10-Vgg  | Baseline |  Sparsity (1e-4) | Prune (70%) | Fine-tune-160(70%) |
 | :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: |
@@ -93,5 +95,5 @@ Note: For results of pruning 60% of the channels for resnet164-cifar100, in this
 |    Parameters     |  1.10M  |            1.10M            |        0.71M        |         0.71M         |  0.50M       |     0.50M    |
 
 ## Contact
-liuzhuangthu at gmail.com  
 sunmj15 at gmail.com 
+liuzhuangthu at gmail.com  
