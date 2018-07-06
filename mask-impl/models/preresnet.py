@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 import math
 import torch.nn as nn
-from .channel_selection import channel_selection
 
 
 __all__ = ['resnet']
@@ -16,7 +15,6 @@ class Bottleneck(nn.Module):
     def __init__(self, inplanes, planes, cfg, stride=1, downsample=None):
         super(Bottleneck, self).__init__()
         self.bn1 = nn.BatchNorm2d(inplanes)
-        self.select = channel_selection(inplanes)
         self.conv1 = nn.Conv2d(cfg[0], cfg[1], kernel_size=1, bias=False)
         self.bn2 = nn.BatchNorm2d(cfg[1])
         self.conv2 = nn.Conv2d(cfg[1], cfg[2], kernel_size=3, stride=stride,
@@ -31,7 +29,6 @@ class Bottleneck(nn.Module):
         residual = x
 
         out = self.bn1(x)
-        out = self.select(out)
         out = self.relu(out)
         out = self.conv1(out)
 
@@ -71,7 +68,6 @@ class resnet(nn.Module):
         self.layer2 = self._make_layer(block, 32, n, cfg = cfg[3*n:6*n], stride=2)
         self.layer3 = self._make_layer(block, 64, n, cfg = cfg[6*n:9*n], stride=2)
         self.bn = nn.BatchNorm2d(64 * block.expansion)
-        self.select = channel_selection(64 * block.expansion)
         self.relu = nn.ReLU(inplace=True)
         self.avgpool = nn.AvgPool2d(8)
 
@@ -111,7 +107,6 @@ class resnet(nn.Module):
         x = self.layer2(x)  # 16x16
         x = self.layer3(x)  # 8x8
         x = self.bn(x)
-        x = self.select(x)
         x = self.relu(x)
 
         x = self.avgpool(x)

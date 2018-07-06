@@ -59,35 +59,35 @@ python main.py --refine [PATH TO THE PRUNED MODEL] --dataset cifar10 --arch vgg 
 
 ## Results
 ### CIFAR10
-|  CIFAR10-Vgg  | Baseline |  Sparsity (1e-4) | Prune (70%) | Fine-tune-160 |
+|  CIFAR10-Vgg  | Baseline |  Sparsity (1e-4) | Prune (70%) | Fine-tune-160(70%) |
 | :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: |
 | Top1 Accuracy (%) |  93.77   |            93.30            |        32.54        |         93.78         |
 |    Parameters     |  20.04M  |            20.04M            |        2.25M        |         2.25M         |
 
-|  CIFAR10-Resnet-164  | Baseline |    Sparsity (1e-5) | Prune(60%) | Fine-tune-160(0.6) |   Prune(40%)     |  Fine-tune-160(0.4)       |
+|  CIFAR10-Resnet-164  | Baseline |    Sparsity (1e-5) | Prune(40%) | Fine-tune-160(40%) |   Prune(60%)     |  Fine-tune-160(60%)       |
 | :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: |  :----------------:| :--------------------:|
-| Top1 Accuracy (%) |  94.75   |            94.76             |        47.73       |         --         |      94.58       |     --     |
-|    Parameters     |  1.71M  |             1.73M            |        1.12M        |         1.12M         |      1.45M          |   1.45M           |
+| Top1 Accuracy (%) |  94.75   |            94.76             |        94.58       |         95.05         |      47.73       |     93.81     |
+|    Parameters     |  1.71M  |             1.73M            |        1.45M        |         1.45M         |      1.12M          |   1.12M           |
 
-|  CIFAR10-Densenet-40  | Baseline |  Sparsity (1e-5) | Prune (40%) | Fine-tune-160(0.4) |       Prune(60%)   | Fine-tune-160(0.6) |
+|  CIFAR10-Densenet-40  | Baseline |  Sparsity (1e-5) | Prune (40%) | Fine-tune-160(40%) |       Prune(60%)   | Fine-tune-160(60%) |
 | :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: | :--------------------: | :-----------------:|
-| Top1 Accuracy (%) |  94.11   |           94.17             |        94.16       |         --         |      89.46       |     --     |
+| Top1 Accuracy (%) |  94.11   |           94.17             |        94.16       |         94.32         |      89.46       |     94.22     |
 |    Parameters     |  1.07M  |            1.07M            |        0.69M       |         0.69M         |       0.49M      |    0.49M     |
 
 ### CIFAR100
-|  CIFAR100-Vgg  | Baseline |   Sparsity (1e-4) | Prune (50%) | Fine-tune-160 |
+|  CIFAR100-Vgg  | Baseline |   Sparsity (1e-4) | Prune (50%) | Fine-tune-160(50%) |
 | :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: |
 | Top1 Accuracy (%) |   72.12   |            72.05             |         5.31        |         73.32         |
 |    Parameters     |  20.04M  |            20.04M            |        4.93M        |         4.93M         |
 
-|  CIFAR100-Resnet-164  | Baseline |   Sparsity (1e-5) | Prune (40%) | Fine-tune-160 |    Prune(60%)  | Fine-tune-160(0.6) |
+|  CIFAR100-Resnet-164  | Baseline |   Sparsity (1e-5) | Prune (40%) | Fine-tune-160(40%) |    Prune(60%)  | Fine-tune-160(60%) |
 | :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: |:--------------------: | :-----------------:|
-| Top1 Accuracy (%) |  -----   |            ---             |        ---        |         ---         |  ---       |     --     |
-|    Parameters     |  1.73M  |            1.73M            |        ---        |         ---         |---       |     --     |
+| Top1 Accuracy (%) |  -----   |            76.87             |        48.0        |         ---         |  ---       |     --     |
+|    Parameters     |  1.73M  |            1.73M            |        1.49M        |         ---         |---       |     --     |
 
-|  CIFAR100-Densenet-40  | Baseline |    Sparsity (1e-5) | Prune (40%) | Fine-tune-160 | Prune(60%)  | Fine-tune-160(0.6) |
+|  CIFAR100-Densenet-40  | Baseline |    Sparsity (1e-5) | Prune (40%) | Fine-tune-160(40%) | Prune(60%)  | Fine-tune-160(60%) |
 | :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: |:--------------------: | :-----------------:|
-| Top1 Accuracy (%) |  73.27   |          73.29            |        67.67        |         ---         |   19.18       |     --     |
+| Top1 Accuracy (%) |  73.27   |          73.29            |        67.67        |         73.76         |   19.18       |     73.19     |
 |    Parameters     |  1.10M  |            1.10M            |        0.71M        |         0.71M         |  0.50M       |     0.50M    |
 
 ## Contact

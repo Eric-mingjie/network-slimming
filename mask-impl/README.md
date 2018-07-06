@@ -7,3 +7,8 @@ we call `optimizer.step()`, we update the gradient of those 0 scaling factors to
 - Even if a layer is pruned to zero channels, it won't raise any error. Instead, this layer will simply output an all-0 tensor.
 ### Cons
 - Not easy to compute flops and parameters.
+
+## Results
+|  CIFAR100-Resnet-164  | Baseline |   Sparsity (1e-5) | Prune (40%) | Fine-tune-160(40%) |    Prune(60%)  | Fine-tune-160(60%) |
+| :---------------: | :------: | :--------------------------: | :-----------------: | :-------------------: |:--------------------: | :-----------------:|
+| Top1 Accuracy (%) |  76.68   |            76.89             |        48.61        |         77.33         |     1.91       |     76.07     |

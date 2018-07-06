@@ -45,8 +45,6 @@ if args.model:
         model.load_state_dict(checkpoint['state_dict'])
         print("=> loaded checkpoint '{}' (epoch {}) Prec1: {:f}"
               .format(args.model, checkpoint['epoch'], best_prec1))
-    else:
-        print("=> no checkpoint found at '{}'".format(args.resume))
 
 print(model)
 total = 0
@@ -65,7 +63,6 @@ for m in model.modules():
 y, i = torch.sort(bn)
 thre_index = int(total * args.percent)
 thre = y[thre_index]
-thre.cuda()
 
 pruned = 0
 cfg = []
@@ -73,7 +70,7 @@ cfg_mask = []
 for k, m in enumerate(model.modules()):
     if isinstance(m, nn.BatchNorm2d):
         weight_copy = m.weight.data.abs().clone()
-        mask = weight_copy.gt(thre.item()).float().cuda()
+        mask = weight_copy.gt(thre).float().cuda()
         pruned = pruned + mask.shape[0] - torch.sum(mask)
         m.weight.data.mul_(mask)
         m.bias.data.mul_(mask)
@@ -120,7 +117,7 @@ def test():
 
     print('\nTest set: Accuracy: {}/{} ({:.1f}%)\n'.format(
         correct, len(test_loader.dataset), 100. * correct / len(test_loader.dataset)))
-    return correct.item() / float(len(test_loader.dataset))
+    return correct / float(len(test_loader.dataset))
 
 acc = test()
 print(cfg)
