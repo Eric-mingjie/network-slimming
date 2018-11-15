@@ -64,8 +64,8 @@ class densenet(nn.Module):
             cfg = []
             start = growthRate*2
             for i in range(3):
-                cfg.append([start+12*i for i in range(n+1)])
-                start += growthRate*12
+                cfg.append([start+ growthRate*i for i in range(n+1)])
+                start += growthRate*n
             cfg = [item for sub_list in cfg for item in sub_list]
 
         assert len(cfg) == 3*n+3, 'length of config variable cfg should be 3n+3'
